@@ -1,0 +1,74 @@
+version: 2
+
+groups:
+  - name: sales
+    owner:
+      name: Sales Team
+      email: sales@acme.co
+
+models:
+  - name: dim_customers
+    group: sales
+    access: public
+    config:
+      contract:
+        enforced: true
+    description: Customer dimensions table
+    columns:
+      - name: customer_key
+        data_type: int
+        description: Primary key on the customers table
+        tests:
+          - unique
+          - not_null
+      - name: region
+        data_type: varchar(25)
+        description: region name
+        tests:
+          - accepted_values:
+              values: ['AFRICA','MIDDLE EAST','ASIA','EUROPE','AMERICA']
+              severity: warn
+      - name: name
+        data_type: varchar(25)
+        description: customer id
+      - name: address
+        data_type: varchar(40)
+        description: address of the customer
+      - name: nation
+        data_type: varchar(25)
+        description: nation name
+      - name: phone_number
+        data_type: varchar(15)
+        description: phone number of the customer
+      - name: account_balance
+        data_type: number(38,0)
+        description: '{{ doc("account_balance") }}'
+      - name: market_segment
+        data_type: varchar(10)
+        description: market segment of the customer
+      - name: lifetime_value
+        data_type: int
+        description: lifetime value for the customer
+      - name: tier_name
+        data_type: string
+        description: tier of the customer
+      - name: is_high_value
+        data_type: varchar(1)
+        description: high revenue account
+      - name: is_mid_value
+        data_type: varchar(1)
+        description: mid revenue account
+      - name: is_low_value
+        data_type: varchar(1)
+        description: low revenue account
+    versions:
+      - v: 1
+        columns:
+          - include: all
+            exclude: [is_high_value,is_mid_value,is_low_value]
+        deprecation_date: 2023-10-31 00:00:00.00+00:00
+      - v: 2
+        columns:
+          - include: all
+            exclude: [tier_name]
+    latest_version: 2

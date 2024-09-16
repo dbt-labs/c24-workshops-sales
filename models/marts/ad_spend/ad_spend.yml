@@ -1,0 +1,54 @@
+groups:
+  - name: ad_sales_ops
+    owner:
+      name: Ad Sales Operations
+      email: ad_sales@corp.com
+
+
+models:
+  - name: ad_spend_per_adv
+    latest_version: 1
+    description: you are using an old version of this model, which will be deprecated on
+    group: ad_sales_ops
+    access: public
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: advertiser_id
+        data_type: int
+        constraints:
+          - type: not_null
+      - name: total_ad_spend
+        data_type: int
+      - name: advertiser_count
+        data_type: int
+
+    versions:
+    
+      - v: 1
+        columns:
+          - include: all
+        deprecation_date: 2023-10-31 00:00:00.00+00:00
+    
+      - v: 2
+        # changed a col -- this is the breaking change!
+        columns:
+          # This means: use the 'columns' list from above, but exclude country_name
+          - include: all
+            exclude: [advertiser_count]
+
+
+  - name: stg_ad_spend
+    config:
+      contract:
+        enforced: true
+    group: ad_sales_ops
+    access: private
+    columns:
+      - name: advertiser_id
+        data_type: int
+        constraints:
+          - type: not_null
+      - name: spend
+        data_type: int
