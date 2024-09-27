@@ -4,7 +4,7 @@ version: 2
 sources:
   - name: tpch
     description: Welcome to the dbt Labs demo dbt project! We use the [TPCH dataset](https://docs.snowflake.com/en/user-guide/sample-data-tpch.html) to create a sample project to emulate what a production project might look like!
-    database: raw
+    database: snowflake_sample_data
     schema: tpch_sf001
     freshness: # make this a warning as this is static data
           warn_after: {count: 12, period: hour}

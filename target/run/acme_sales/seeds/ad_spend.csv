@@ -1,0 +1,12 @@
+
+    
+    
+    truncate table "ANALYTICS"."DBT_KCOAPMAN"."AD_SPEND";
+    -- dbt seed --
+    
+            insert into analytics.dbt_kcoapman.ad_spend (advertiser_id, spend) values
+            (%s,%s),(%s,%s),(%s,%s),(%s,%s),(%s,%s)
+        
+
+;
+  
